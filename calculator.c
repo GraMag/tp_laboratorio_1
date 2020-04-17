@@ -143,4 +143,3 @@ void message (int num1, int num2) {
 
 	printf("\nLos operadores se han reiniciado.\n\n");
 }
-

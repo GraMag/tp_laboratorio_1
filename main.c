@@ -44,8 +44,8 @@ int main(void) {
 				"RESTA          (A - B) \n"
 				"MULTIPLICACION (A * B) \n"
 				"DIVISION       (A / B) \n"
-				"FACTORIAL      (!A) \n"
-				"FACTORIAL      (!B) \n");
+				"FACTORIAL      (A!) \n"
+				"FACTORIAL      (B!) \n");
 		}
 		else if (num1ready == 0)
 		{
@@ -54,8 +54,8 @@ int main(void) {
 			printf("RESTA          (A - %d) \n", num2);
 			printf("MULTIPLICACION (A * %d) \n", num2);
 			printf("DIVISION       (A / %d) \n", num2);
-			printf("FACTORIAL      (!A) \n");
-			printf("FACTORIAL      (!%d) \n", num2);
+			printf("FACTORIAL      (A!) \n");
+			printf("FACTORIAL      (%d!) \n", num2);
 		}
 		else if (num2ready == 0)
 		{
@@ -64,8 +64,8 @@ int main(void) {
 			printf("RESTA          (%d - B) \n", num1);
 			printf("MULTIPLICACION (%d * B) \n", num1);
 			printf("DIVISION       (%d / B) \n", num1);
-			printf("FACTORIAL      (!%d) \n", num1);
-			printf("FACTORIAL      (!B) \n");
+			printf("FACTORIAL      (%d!) \n", num1);
+			printf("FACTORIAL      (B!) \n");
 		}
 		else
 		{
@@ -74,8 +74,8 @@ int main(void) {
 			printf("RESTA          (%d - %d) \n", num1, num2);
 			printf("MULTIPLICACION (%d * %d) \n", num1, num2);
 			printf("DIVISION       (%d / %d) \n", num1, num2);
-			printf("FACTORIAL      (!%d) \n", num1);
-			printf("FACTORIAL      (!%d) \n", num2);
+			printf("FACTORIAL      (%d!) \n", num1);
+			printf("FACTORIAL      (%d!) \n", num2);
 		}
 		printf("4- Informar resultados.\n");
 		printf("5- Salir.\n");
