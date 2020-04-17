@@ -1,7 +1,6 @@
 #ifndef CALCULATOR_H_
 #define CALCULATOR_H_
 
-//int menue ();
 int addNum (char something[], char error[]);
 int sum (int num1, int num2);
 int substrac (int num1, int num2);
