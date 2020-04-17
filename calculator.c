@@ -17,12 +17,12 @@ int addNum (char something[], char error[]) {
 	int checknum;
 
 	setbuf(stdout,NULL);
-	printf("%s: \n\n", something);
+	printf("%s: \n", something);
 	checknum = scanf("%d", &num);
 	fflush(stdin);
 
 	while(checknum == 0) {
-		printf("%s: \n\n", error);
+		printf("%s: \n", error);
 		checknum = scanf("%d", &num);
 		fflush(stdin);
 	}

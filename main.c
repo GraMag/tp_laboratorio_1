@@ -36,7 +36,47 @@ int main(void) {
 		{
 			printf("2- Ingrese el segundo operando. (B = %d) \n", num2);
 		}
-		printf("3- Calcular todas las operaciones.\n");
+
+		if (num1ready == 0 && num2ready == 0)
+		{
+			printf("3- Calcular todas las operaciones.\n"
+				"SUMA           (A + B) \n"
+				"RESTA          (A - B) \n"
+				"MULTIPLICACION (A * B) \n"
+				"DIVISION       (A / B) \n"
+				"FACTORIAL      (!A) \n"
+				"FACTORIAL      (!B) \n");
+		}
+		else if (num1ready == 0)
+		{
+			printf("3- Calcular todas las operaciones.\n");
+			printf("SUMA           (A + %d) \n", num2);
+			printf("RESTA          (A - %d) \n", num2);
+			printf("MULTIPLICACION (A * %d) \n", num2);
+			printf("DIVISION       (A / %d) \n", num2);
+			printf("FACTORIAL      (!A) \n");
+			printf("FACTORIAL      (!%d) \n", num2);
+		}
+		else if (num2ready == 0)
+		{
+			printf("3- Calcular todas las operaciones.\n");
+			printf("SUMA           (%d + B) \n", num1);
+			printf("RESTA          (%d - B) \n", num1);
+			printf("MULTIPLICACION (%d * B) \n", num1);
+			printf("DIVISION       (%d / B) \n", num1);
+			printf("FACTORIAL      (!%d) \n", num1);
+			printf("FACTORIAL      (!B) \n");
+		}
+		else
+		{
+			printf("3- Calcular todas las operaciones.\n");
+			printf("SUMA           (%d + %d) \n", num1, num2);
+			printf("RESTA          (%d - %d) \n", num1, num2);
+			printf("MULTIPLICACION (%d * %d) \n", num1, num2);
+			printf("DIVISION       (%d / %d) \n", num1, num2);
+			printf("FACTORIAL      (!%d) \n", num1);
+			printf("FACTORIAL      (!%d) \n", num2);
+		}
 		printf("4- Informar resultados.\n");
 		printf("5- Salir.\n");
 
