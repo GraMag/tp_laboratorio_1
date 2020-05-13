@@ -23,10 +23,7 @@ typedef struct
 int invalidList(sEmployee* list, int len);
 int initEmployees(sEmployee* list, int len);
 int noEmployee (int ready);
-int menue();
-int infoMenue();
-int modifyMenue();
-int infoSubMenue();
+int menue(char message[350]);
 int findEmployeeById(sEmployee* list, int len, int id);
 int askData (sEmployee* list, int len, int id);
 int addEmployees (sEmployee* list, int len, int id, char name[], char lastName [], float salary, int sector);

@@ -64,81 +64,15 @@ int noEmployee (int ready)
 	return 0;
 }
 /**
- * @brief Main manue
+ * @brief Customizable menue
  *
- * @return int option (1) Add, (2) Modify, (3) Remove, (4) Information (5) Exit.
+ * @return int option selected by user
  */
-int menue()
+int menue(char message[350])
 {
 	int option;
 
-	printf( "\n"
-			"Por favor, seleccione una opcion:\n\n"
-			"1.- Alta empleado\n"
-			"2.- Modificar empleado\n"
-			"3.- Baja empelado\n"
-			"4.- Informar\n"
-			"5.- Salir\n\n");
-	scanf("%d", &option);
-
-	return option;
-}
-
-/**
- * @brief Information menue
- *
- * @return int option (1) List, (2) Statistics.
- */
-
-int infoMenue()
-{
-	int option;
-
-	printf( "\n"
-			"Por favor, seleccione una opcion:\n\n"
-			"1.- Listado de empleados\n"
-			"2.- Estadisticas\n");
-	scanf("%d", &option);
-
-	return option;
-}
-
-/**
- * @brief Modify manue
- *
- * @return int option (1) Name, (2) Last name, (3) Salary, (4) Sector.
- */
-
-int modifyMenue ()
-{
-	int option;
-
-	printf( "\n"
-			"Seleccione parametro a modificar:\n\n"
-			"1.- Nombre\n"
-			"2.- Apellido\n"
-			"3.- Salario\n"
-			"4.- Sector\n"
-			"Presione una tecla para cancelar.\n\n");
-	scanf("%d", &option);
-
-	return option;
-}
-
-/**
- * @brief Select order criteria
- *
- * @return int option (1) A-Z, (2) Z-A
- */
-
-int infoSubMenue(char message[300])
-{
-	int option;
-
-	printf( "\n"
-			"Modo de ordenamiento:\n\n"
-			"1.- Ascendente\n"
-			"2.- Descendente\n");
+	printf( "\n%s\n", message);
 	scanf("%d", &option);
 
 	return option;
@@ -276,7 +210,12 @@ int modifyEmployee (sEmployee* list, int len)
 		}
 		else
 		{
-			switch(modifyMenue())
+			switch(menue("Seleccione parametro a modificar:\n"
+							"1.- Nombre\n"
+							"2.- Apellido\n"
+							"3.- Salario\n"
+							"4.- Sector\n"
+							"Presione una tecla para cancelar.\n"))
 			{
 				case 1:
 					printf("Ingrese nuevo nombre: ");
@@ -376,20 +315,26 @@ int statisticsEmployees(sEmployee* list, int len)
 			}
 		}
 
-		averageSalary = totalSalary / totalEmployees;
-
-		for (int i = 0; i < len; i++)
+		if(totalEmployees == 0)
 		{
-			if(list[i].isEmpty == 0 && list[i].salary > averageSalary)
-			{
-				overAverageSalary++;
-			}
+			printf("Se requiere por lo menos un empleado para mostrar datos.\n");
 		}
+		else
+		{
+			averageSalary = totalSalary / totalEmployees;
 
-		printf("El monto total de los salarios es: $%.2f \n", totalSalary);
-		printf("El promedio de los salarios es $%.2f \n", averageSalary);
-		printf("Hay %d empleados que cobran por encima del promedio.", overAverageSalary);
+			for (int i = 0; i < len; i++)
+			{
+				if(list[i].isEmpty == 0 && list[i].salary > averageSalary)
+				{
+					overAverageSalary++;
+				}
+			}
 
+			printf("El monto total de los salarios es: $%.2f \n", totalSalary);
+			printf("El promedio de los salarios es $%.2f \n", averageSalary);
+			printf("Hay %d empleados que cobran por encima del promedio.", overAverageSalary);
+		}
 		return 0;
 	}
 }
@@ -414,38 +359,45 @@ int sortEmployees(sEmployee* list, int len, int order)
 	}
 	else
 	{
-		for (int i = 0; i < len -1 ; i++)
+		if(order > 2 || order < 1)
 		{
-
-			for (int j = i+1; j < len; j ++)
+			printf("Orden invalido.\n");
+		}
+		else
+		{
+			for (int i = 0; i < len -1 ; i++)
 			{
-				if (order == 1 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) > 0))
+
+				for (int j = i+1; j < len; j ++)
 				{
-					auxEmp = list[i];
-					list[i] = list[j];
-					list[j] = auxEmp;
-				}
-				if (order == 1 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) == 0 && list[i].sector > list[j].sector))
-				{
-					auxEmp = list[i];
-					list[i] = list[j];
-					list[j] = auxEmp;
-				}
-				if (order == 0 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) < 0))
-				{
-					auxEmp = list[i];
-					list[i] = list[j];
-					list[j] = auxEmp;
-				}
-				if (order == 0 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) == 0 && list[i].sector > list[j].sector))
-				{
-					auxEmp = list[i];
-					list[i] = list[j];
-					list[j] = auxEmp;
+					if (order == 1 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) > 0))
+					{
+						auxEmp = list[i];
+						list[i] = list[j];
+						list[j] = auxEmp;
+					}
+					if (order == 1 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) == 0 && list[i].sector > list[j].sector))
+					{
+						auxEmp = list[i];
+						list[i] = list[j];
+						list[j] = auxEmp;
+					}
+					if (order == 2 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) < 0))
+					{
+						auxEmp = list[i];
+						list[i] = list[j];
+						list[j] = auxEmp;
+					}
+					if (order == 2 && list[i].isEmpty == 0 && (strcmp(list[i].lastName,list[j].lastName) == 0 && list[i].sector > list[j].sector))
+					{
+						auxEmp = list[i];
+						list[i] = list[j];
+						list[j] = auxEmp;
+					}
 				}
 			}
+			printEmployees(list, len);
 		}
-	printEmployees(list, len);
 	return 0;
 	}
 }
@@ -463,9 +415,13 @@ int requestInfo(sEmployee* list, int len)
 	}
 	else
 	{
-		if(infoMenue() == 1)
+		if(menue("Por favor, seleccione una opcion:\n"
+					"1.- Listado de empleados\n"
+					"2.- Estadisticas\n") == 1)
 		{
-			sortEmployees(list, len, infoSubMenue());
+			sortEmployees(list, len, menue("Modo de ordenamiento:\n"
+											"1.- Ascendente\n"
+											"2.- Descendente\n"));
 		}
 		else
 		{
@@ -481,7 +437,8 @@ int requestInfo(sEmployee* list, int len)
 
 void printEmployee(sEmployee emp)
 {
-	printf("| %04d | %20s | %20s | $%10.2f |   %3d    |\n", emp.id, emp.name, emp.lastName, emp.salary, emp.sector);
+
+	printf(	"| %04d | %20s | %20s | $%10.2f |   %3d    |\n", emp.id, emp.name, emp.lastName, emp.salary, emp.sector);
 }
 
 /** \brief print the content of employees array in each position
@@ -508,6 +465,7 @@ int printEmployees(sEmployee* list, int len)
 				printEmployee(list[i]);
 			}
 		}
+		printf( "#======#======================#======================#=============#==========#\n");
 		return 0;
 	}
 }
