@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "arrayEmployees.h"
 
 #define LEN 1000
@@ -31,7 +32,7 @@ int main(void) {
 					"5.- Salir\n"))
 		{
 			case 1:
-				if(!(askData(employees, LEN, nextID)))
+				if(askData(employees, LEN, nextID) == 0)
 				{
 					nextID++;
 					readyStep1 = 1;
@@ -56,13 +57,11 @@ int main(void) {
 				}
 				break;
 			case 5:
-				printf("Salir");
-				repeat = 'n';
+				exit(-1);
 				break;
 			default:
 				printf("No es una opcion valida.\n");
 		}
-
 		system("pause");
 
 	} while (repeat == 's');

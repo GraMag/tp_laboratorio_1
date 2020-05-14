@@ -36,5 +36,5 @@ void printEmployee(sEmployee emp);
 int printEmployees(sEmployee* list, int len);
 float inputSalary(char message[40]);
 int inputInt(char message[40]);
-//char* checkString(char message[40]);
+void inputString(char message[20], char* string);
 

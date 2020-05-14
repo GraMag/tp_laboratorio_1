@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "arrayEmployees.h"
 
 /**
@@ -54,6 +55,7 @@ int initEmployees(sEmployee* list, int len)
  * @param ready int ready // 0 TRUE 1 FALSE
  * @return int Return (-1) if Error [No employee has been added yet.] - (0) if Ok
  */
+
 int noEmployee (int ready)
 {
 	if(!(ready))
@@ -63,11 +65,13 @@ int noEmployee (int ready)
 	}
 	return 0;
 }
+
 /**
  * @brief Customizable menue
  *
  * @return int option selected by user
  */
+
 int menue(char message[350])
 {
 	int option;
@@ -128,14 +132,12 @@ int askData(sEmployee* list, int len, int id)
 		{
 			if (list[i].isEmpty == 1 )
 			{
-				printf("Ingrese nombre: ");
-				fflush(stdin);
-				gets(auxEmp.name);
-				printf("Ingrese apellido: ");
-				fflush(stdin);
-				gets(auxEmp.lastName);
+				inputString("nombre", auxEmp.name);
+				inputString("apellido", auxEmp.lastName);
+				auxEmp.salary = inputSalary("salario");
+				auxEmp.sector = inputInt("sector");
 
-				addEmployees (list, len, id, auxEmp.name, auxEmp.lastName, inputSalary("salario"), inputInt("sector"));
+				addEmployees (list, len, id, auxEmp.name, auxEmp.lastName, auxEmp.salary, auxEmp.sector);
 
 				return 0;
 			}
@@ -402,7 +404,7 @@ int sortEmployees(sEmployee* list, int len, int order)
 	}
 }
 
-/** \brief Inf
+/** \brief
 * \param list Employee*
 * \param length int
 * \return int Return (-1) if Error [Invalid length or NULL pointer] - (0) if Ok
@@ -431,7 +433,7 @@ int requestInfo(sEmployee* list, int len)
 	}
 }
 
-/** \brief print the content of employees array
+/** \brief prints one employee
 * \param sEmploee emp
 */
 
@@ -470,30 +472,31 @@ int printEmployees(sEmployee* list, int len)
 	}
 }
 
-/** \brief get employee's salary
-* \param char message[40]
-* \return float salary is positive number
+/** \brief gets float number, if it's out of range it will be ask again
+* \param char message[20]
+* \return float num is positive number
 */
-float inputSalary(char message[40])
+
+float inputSalary(char message[20])
 {
-	float salary;
+	float num;
 
 	printf("Ingrese %s: ", message);
-	scanf("%f", &salary);
+	scanf("%f", &num);
 
-	while (salary < 1)
+	while (num < 1)
 	{
-		printf("Salario fuera de rango. Ingrese %s nuevamente: \n", message);
-		scanf("%f", &salary);
+		printf("ERROR: %s fuera de rango. Ingrese %s nuevamente: \n", message, message);
+		scanf("%f", &num);
 	}
-	return salary;
+	return num;
 }
 
-/** \brief get employee's sector
-* \param char message[40]
-* \return int sector is a positive number or (0)
+/** \brief gets int number, if it's out of range it will be ask again
+* \param char message[20]
+* \return int num is a positive number or (0)
 */
-int inputInt(char message[40])
+int inputInt(char message[20])
 {
 	int num;
 
@@ -502,14 +505,39 @@ int inputInt(char message[40])
 
 	while (num < 0)
 	{
-		printf("Sector fuera de rango. Ingrese %s nuevamente: ", message);
+		printf("ERROR: %s fuera de rango. Ingrese %s nuevamente: ", message, message);
 		scanf("%d", &num);
 	}
 	return num;
 }
-/*
-char* imputString(char message[40])
-{
 
-}
+/** \brief gets a char array to check lenght, when it's ok everything turn to lower case,
+ * then the first letter of each word is change to upper case
+* \param char message[20]
+* \param char* string
 */
+void inputString(char message[20], char* string)
+{
+	printf("Ingrese %s: ", message);
+	fflush(stdin);
+	gets(string);
+
+	while (strlen(string) > 19 )
+	{
+		printf("ERROR: %s es demasiado largo. Ingrese %s nuevamente: ", message, message);
+		fflush(stdin);
+		gets(string);
+	}
+
+	strlwr(string);
+
+	for(int i = 0; i < strlen(string); i++)
+	{
+		string[0] = toupper(string[0]);
+		if(string[i] == ' ')
+		{
+			string[i+1] = toupper(string[i+1]);
+		}
+	}
+}
+
