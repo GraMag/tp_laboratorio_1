@@ -521,23 +521,51 @@ void inputString(char message[20], char* string)
 	printf("Ingrese %s: ", message);
 	fflush(stdin);
 	gets(string);
+	int noNum = 0;
 
-	while (strlen(string) > 19 )
+	do
+	{
+	if (strlen(string) > 19)
 	{
 		printf("ERROR: %s es demasiado largo. Ingrese %s nuevamente: ", message, message);
 		fflush(stdin);
 		gets(string);
 	}
-
-	strlwr(string);
-
-	for(int i = 0; i < strlen(string); i++)
+	else
 	{
-		string[0] = toupper(string[0]);
-		if(string[i] == ' ')
+		strlwr(string);
+
+		for (int i = 0; i < strlen(string); i++)
 		{
-			string[i+1] = toupper(string[i+1]);
+			if(isdigit(string[i]))
+			{
+				noNum = 1;
+				break;
+			}
+			else
+			{
+				noNum = 0;
+			}
 		}
 	}
+	if (noNum == 1)
+	{
+		printf("ERROR: No se aceptan numeros. Ingrese %s nuevamente: ", message);
+		fflush(stdin);
+		gets(string);
+	}
+	else
+	{
+		for(int i = 0; i < strlen(string); i++)
+		{
+			string[0] = toupper(string[0]);
+			if(string[i] == ' ')
+			{
+				string[i+1] = toupper(string[i+1]);
+			}
+		}
+	}
+	}while(noNum == 1);
+
 }
 

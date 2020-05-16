@@ -61,6 +61,7 @@ int main(void) {
 				break;
 			default:
 				printf("No es una opcion valida.\n");
+				break;
 		}
 		system("pause");
 
