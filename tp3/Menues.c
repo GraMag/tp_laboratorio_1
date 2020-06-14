@@ -19,7 +19,7 @@ int mainMenue(){
 			"10. Salir\n"
 			"*****************************************************\n\n"
 			"Seleccione una opcion: ");
-	scanf("%d\n", &option);
+	scanf("%d", &option);
 
 	return option;
 }

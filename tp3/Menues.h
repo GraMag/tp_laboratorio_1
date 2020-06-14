@@ -8,6 +8,6 @@
 #ifndef MENUES_H_
 #define MENUES_H_
 
-int mainMenue();
-
 #endif /* MENUES_H_ */
+
+int mainMenue();

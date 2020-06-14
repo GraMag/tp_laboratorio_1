@@ -56,15 +56,15 @@ int main()
 			case 6:
 				if (controller_ListEmployee(listEmployees))
 				{
-					printf("No hay datos que mostrar\n");   // 1
+					printf("No hay datos que mostrar\n");
 				}
 				else
 				{
-					printf("Listado ok\n"); // 0
+					printf("Listado ok\n");
 				}
 				break;
 			case 8:
-				if (controller_saveAsText("dataBackup.csv", listEmployees)) { // CAMBIAR EL NOMBRE DEL ARCHIVO
+				if (controller_saveAsText("dataBackup.csv", listEmployees)) {
 					printf("Error al guardar el archivo\n");
 				}
 				else
