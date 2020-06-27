@@ -58,7 +58,12 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_addEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int error = -1;
+
+//	if(pArrayListEmployee != NULL){
+	//	ll_add(pArrayListEmployee,pepe);
+	//}
+    return error;
 }
 
 /** \brief Modificar datos de empleado
@@ -69,10 +74,100 @@ int controller_addEmployee(LinkedList* pArrayListEmployee)
  *
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
-{
-    return 1;
-}
+{	int error = -1;
+	int index;
+	int option;
+	Employee* auxEmp;
+	char name[50];
+	char auxName[50];
+	int hours;
+	int auxHours;
+	int salary;
+	int auxSalary;
+	if(pArrayListEmployee != NULL){
+		printf("Ingrese ID: ");
+		scanf("%d", &index);
+		auxEmp = ll_get(pArrayListEmployee, (index-1));
+		if(ll_indexOf(pArrayListEmployee, auxEmp) != -1)
+		{
+			printf("Que parametro desea modificar?\n"
+					"1.- Nombre\n"
+					"2.- Horas trabajadas\n"
+					"3.- Salario\n"
+					"4.- Cancelar\n");
+			scanf("%d", &option);
 
+			switch(option)
+			{
+				case 1:
+
+					printf("Ingrese nuevo nombre: ");
+					fflush(stdin);
+					gets(name);
+					employee_getNombre(auxEmp, auxName);
+					printf("Esta seguro que desea cambiar %s por %s?\n", auxName, name);
+					printf( "1.- Si\n"
+							"2.- No\n");
+					scanf("%d", &option);
+					if(option == 1)
+					{
+						employee_setNombre(auxEmp, name);
+						printf("Nombre modificado con exito\n");
+					}
+					else
+					{
+						printf("No se realizaron cambios\n");
+					}
+					break;
+
+				case 2:
+
+					printf("Ingrese nueva cantidad de horas trabajadas: ");
+					scanf("%d", &hours);
+					employee_getHorasTrabajadas(auxEmp, &auxHours);
+					printf("Esta seguro que desea cambiar %dhs por %dhs?\n", auxHours, hours);
+					printf( "1.- Si\n"
+							"2.- No\n");
+					scanf("%d", &option);
+					if(option == 1)
+					{
+						employee_setHorasTrabajadas(auxEmp, hours);
+						printf("Horas trabajadas modificadas con exito\n");
+					}
+					else
+					{
+						printf("No se realizaron cambios\n");
+					}
+					break;
+
+				case 3:
+
+					printf("Ingrese nuevo salario: ");
+					scanf("%d", &salary);
+					employee_getSueldo(auxEmp, &auxSalary);
+					printf("Esta seguro que desea cambiar $%d.00 por $%d.00?\n", auxSalary, salary);
+					printf( "1.- Si\n"
+							"2.- No\n");
+					scanf("%d", &option);
+					if(option == 1)
+					{
+						employee_setSueldo(auxEmp, salary);
+						printf("Salario modificado con exito\n");
+					}
+					else
+					{
+						printf("No se realizaron cambios\n");
+					}
+					break;
+				default:
+					printf("No se realizaron cambios");
+			}
+		}
+		error = 0;
+	}
+
+	return error;
+}
 /** \brief Baja de empleado
  *
  * \param path char*
@@ -82,14 +177,36 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
+	int error = -1;
 	int index;
+	int option;
+	Employee* auxEmp;
 
-	printf("Ingrese ID");
-	scanf("%d", &index);
+	if(pArrayListEmployee != NULL){
+		printf("Ingrese ID: ");
+		scanf("%d", &index);
+		auxEmp = ll_get(pArrayListEmployee, (index-1));
+		if(ll_indexOf(pArrayListEmployee, auxEmp) != -1)
+		{
+			printf("Esta seguro que desea eliminar?\n");
+			printEmployee(auxEmp);
+			printf( "1.- Si\n"
+					"2.- No\n");
+			scanf("%d", &option);
+			if(option == 1)
+			{
+					ll_remove(pArrayListEmployee, index-1);
+					printf("Empleado eliminado con exito\n");
+			}
+			else
+			{
+					printf("No se realizaron cambios\n");
+			}
+		}
+		error = 0;
+	}
 
-
-
-    return 1;
+    return error;
 }
 
 /** \brief Listar empleados

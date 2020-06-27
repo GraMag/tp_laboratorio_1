@@ -7,16 +7,12 @@
 
 /****************************************************
     Menu:
-     1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
      2. Cargar los datos de los empleados desde el archivo data.csv (modo binario).
      3. Alta de empleado
      4. Modificar datos de empleado
      5. Baja de empleado
-     6. Listar empleados
      7. Ordenar empleados
-     8. Guardar los datos de los empleados en el archivo data.csv (modo texto).
      9. Guardar los datos de los empleados en el archivo data.csv (modo binario).
-    10. Salir
 *****************************************************/
 
 
@@ -53,6 +49,26 @@ int main()
 					printf("Archivo cargado correctamente\n");
 				}
 				break;
+			case 4:
+				if (controller_editEmployee(listEmployees))
+				{
+					printf("No hay datos que mostrar\n");
+				}
+				else
+				{
+					printf("Listado ok\n");
+				}
+				break;
+			case 5:
+				if (controller_removeEmployee(listEmployees))
+				{
+					printf("No hay datos que mostrar\n");
+				}
+				else
+				{
+					printf("Listado ok\n");
+				}
+				break;
 			case 6:
 				if (controller_ListEmployee(listEmployees))
 				{
@@ -64,7 +80,7 @@ int main()
 				}
 				break;
 			case 8:
-				if (controller_saveAsText("dataBackup.csv", listEmployees)) {
+				if (controller_saveAsText("data.csv", listEmployees)) {
 					printf("Error al guardar el archivo\n");
 				}
 				else

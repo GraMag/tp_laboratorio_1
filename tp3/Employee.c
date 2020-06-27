@@ -152,6 +152,7 @@ int printEmployees(LinkedList* list){
 
 	if(!ll_isEmpty(list)){
 		error = 0;
+		printf("id,nombre,horasTrabajadas,sueldo");
 		for (int i = 0; i < len; i++)
 		{
 			auxEmp = (Employee*) ll_get(list, i);
@@ -160,7 +161,6 @@ int printEmployees(LinkedList* list){
 				printEmployee(auxEmp);
 			}
 		}
-		printf("\n");
 	}
 
 	return error;
@@ -177,10 +177,11 @@ int printEmployee(Employee* this){
 
 
 	if(this != NULL){
-		printf("id,nombre,horasTrabajadas,sueldo");
 		printf("%d, %10s, %d, %d\n", emp.id, emp.name, emp.workedHours, emp.salary);
 		error = 0;
 	}
 
 	return error;
 }
+
+
