@@ -56,19 +56,18 @@ int parser_EmployeeFromBinary(FILE* pFile , LinkedList* pArrayListEmployee)
 {
 	int error = 0;
 	Employee* auxEmp;
-	char id[10];
-	char hours[100];
-	char salary[100];
-	int theEnd;
 
-	do{
-		theEnd = fread(auxEmp, sizeof(Employee), 1, pFile);
-		auxEmp = employee_newParametros(itoa(auxEmp->id, id, 2), auxEmp->name, itoa(auxEmp->workedHours, hours, 2), itoa(auxEmp->salary, salary, 2));
-		if(auxEmp != NULL){
-			printf("%d, %s, %d, %d", auxEmp->id, auxEmp->name, auxEmp->workedHours, auxEmp->salary);
-			ll_add(pArrayListEmployee, auxEmp);
+	while (!feof(pFile))
+	{
+		auxEmp = employee_new();
+		if (fread(auxEmp, sizeof(Employee), 1, pFile) == 1)
+		{
+			if(auxEmp != NULL)
+			{
+				printf("%d, %s, %d, %d\n", auxEmp->id, auxEmp->name, auxEmp->workedHours, auxEmp->salary);
+				ll_add(pArrayListEmployee, auxEmp);
+			}
 		}
-	}while (theEnd != 0);
-
+	}
     return error;
 }

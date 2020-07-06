@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Employee.h"
 #include "Menues.h"
+
 
 int mainMenue(){
 	int option;
@@ -24,3 +26,62 @@ int mainMenue(){
 	return option;
 }
 
+int modifyMenue()
+{
+	int option;
+	printf("Que parametro desea modificar?\n"
+			"1.- Nombre\n"
+			"2.- Horas trabajadas\n"
+			"3.- Salario\n"
+			"4.- Cancelar\n");
+	scanf("%d", &option);
+
+	return option;
+}
+
+int removeMenue(Employee* emp)
+{
+	int option;
+
+	printf("Esta seguro que desea eliminar?\n");
+	printEmployee(emp);
+	printf( "1.- Si\n"
+			"2.- No\n");
+	scanf("%d", &option);
+
+	return option;
+}
+
+int sortMenue()
+{
+	int option;
+	printf("Ordenar por:\n"
+			"1.- ID\n"
+			"2.- Nombre\n"
+			"3.- Horas trabajadas\n"
+			"4.- Salario\n"
+			"5.- Cancelar\n");
+	scanf("%d", &option);
+	return option;
+}
+
+int orderMenue()
+{
+	int option;
+	printf("Modo:\n"
+			"1.- Ascendente\n"
+			"2.- Descentende\n");
+	scanf("%d", &option);
+	return option;
+}
+
+int exitMenue()
+{
+	int option;
+	printf("Aun no se guardo el archivo\n"
+			"Salir sin guardar?\n"
+			"1. Si\n"
+			"2. No\n");
+	scanf("%d", &option);
+	return option;
+}

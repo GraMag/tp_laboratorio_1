@@ -5,105 +5,194 @@
 #include "Employee.h"
 #include "Menues.h"
 
-/****************************************************
-    Menu:
-     2. Cargar los datos de los empleados desde el archivo data.csv (modo binario).
-     3. Alta de empleado
-     4. Modificar datos de empleado
-     5. Baja de empleado
-     7. Ordenar empleados
-     9. Guardar los datos de los empleados en el archivo data.csv (modo binario).
-*****************************************************/
-
-
-
 int main()
 {
 	setbuf(stdout,NULL);
     int seguir = 0;
-
+    int readytxt = 0;
+    int readybin = 0;
+    int savedTxt = 0;
+    int savedBin = 0;
     LinkedList* listEmployees = ll_newLinkedList();
 
     initEmployees(listEmployees);
 
-    do{
+    do
+    {
     	system("cls");
         switch(mainMenue())
         {
             case 1:
-            	if(controller_loadFromText("data.csv", listEmployees))
-            	{
-            	   	printf("Error al cargar el archivo\n");
-               	}
+            	if(!readytxt)
+				{
+					if(controller_loadFromText("data.csv", listEmployees))
+					{
+						printf("Error al cargar el archivo\n");
+					}
+					else
+					{
+						printf("Archivo cargado correctamente\n");
+						readytxt = 1;
+					}
+				}
             	else
             	{
-              		printf("Archivo cargado correctamente\n");
-             	}
+            		printf("El archivo ya esta cargado\n");
+            	}
             	break;
 			case 2:
-				if (controller_loadFromBinary("data.bin", listEmployees)) {
-					printf("Error al cargar el archivo\n");
+				if(!readybin)
+				{
+					if (controller_loadFromBinary("data.bin", listEmployees)) {
+						printf("Error al cargar el archivo\n");
+					}
+					else
+					{
+						printf("Archivo cargado correctamente\n");
+						readybin = 1;
+					}
+				}
+				break;
+			case 3:
+				if(readytxt || readybin)
+				{
+					if (controller_addEmployee(listEmployees))
+					{
+						printf("No se pudo agregar al empleado.\n");
+					}
+					else
+					{
+						printf("Empleado guardado con exito\n");
+						savedBin = 0;
+						savedTxt = 0;
+					}
 				}
 				else
 				{
-					printf("Archivo cargado correctamente\n");
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 4:
-				if (controller_editEmployee(listEmployees))
+				if(readytxt || readybin)
 				{
-					printf("No hay datos que mostrar\n");
+					if (controller_editEmployee(listEmployees))
+					{
+						printf("No hay datos que mostrar\n");
+					}
+					else
+					{
+						savedBin = 0;
+						savedTxt = 0;
+					}
 				}
 				else
 				{
-					printf("Listado ok\n");
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 5:
-				if (controller_removeEmployee(listEmployees))
+				if(readytxt || readybin)
 				{
-					printf("No hay datos que mostrar\n");
+					if (controller_removeEmployee(listEmployees))
+					{
+						printf("No hay datos que mostrar\n");
+					}
+					else
+					{
+						savedBin = 0;
+						savedTxt = 0;
+					}
 				}
 				else
 				{
-					printf("Listado ok\n");
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 6:
-				if (controller_ListEmployee(listEmployees))
+				if(readytxt || readybin)
 				{
-					printf("No hay datos que mostrar\n");
+					if (controller_ListEmployee(listEmployees))
+					{
+						printf("No hay datos que mostrar\n");
+					}
 				}
 				else
 				{
-					printf("Listado ok\n");
+					printf("Aun no se cargo el archivo\n");
+				}
+				break;
+			case 7:
+				if(readytxt || readybin)
+				{
+					if (controller_sortEmployee(listEmployees))
+					{
+						printf("No se realizaron cambios\n");
+					}
+					else
+					{
+						printf("Listado ok\n");
+						savedBin = 0;
+						savedTxt = 0;
+					}
+				}
+				else
+				{
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 8:
-				if (controller_saveAsText("data.csv", listEmployees)) {
-					printf("Error al guardar el archivo\n");
+				if(readytxt || readybin)
+				{
+					if (controller_saveAsText("data.csv", listEmployees)) {
+						printf("Error al guardar el archivo\n");
+					}
+					else
+					{
+						printf("Archivo guardado correctamente\n");
+						savedTxt = 1;
+					}
 				}
 				else
 				{
-					printf("Archivo guardado correctamente\n");
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 9:
-				if (controller_saveAsBinary("data.bin", listEmployees)) {
-					printf("Error al guardar el archivo\n");
+				if(readybin || readytxt)
+				{
+					if (controller_saveAsBinary("data.bin", listEmployees)) {
+						printf("Error al guardar el archivo\n");
+					}
+					else
+					{
+						printf("Archivo guardado correctamente\n");
+						savedBin = 1;
+					}
 				}
 				else
 				{
-					printf("Archivo guardado correctamente\n");
+					printf("Aun no se cargo el archivo\n");
 				}
 				break;
 			case 10:
-				exit(-1);
+				if(!savedTxt && !savedBin)
+				{
+					if(exitMenue() == 1)
+					{
+						exit(-1);
+					}
+				}
+				else
+				{
+					exit(-1);
+				}
+				break;
+			default:
+				printf("Error: opcion invalida.\n");
+				break;
 		}
-
         system("pause");
-    }while(seguir == 0);
+    } while(seguir == 0);
 
     return 0;
 }
-

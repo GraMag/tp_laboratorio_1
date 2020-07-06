@@ -1,10 +1,3 @@
-/*
- * parser.h
- *
- *  Created on: 14 jun. 2020
- *      Author: reyna
- */
-
 #ifndef PARSER_H_
 #define PARSER_H_
 
